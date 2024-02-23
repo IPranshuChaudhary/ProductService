@@ -24,7 +24,6 @@ public class ProductController {
 
     @PostMapping()
     public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto){
-
         Product product = productService.addProduct(getProductFromDto(productDto));
 
         return new ResponseEntity<>(getProductDtoFromProduct(product), HttpStatus.OK);
@@ -79,7 +78,7 @@ public class ProductController {
 
     public ProductDto getProductDtoFromProduct(Product product){
         ProductDto productDto = new ProductDto();
-        productDto.setId(productDto.getId());
+        productDto.setId(product.getId());
         productDto.setTitle(product.getTitle());
 
         productDto.setPrice(product.getPrice());
