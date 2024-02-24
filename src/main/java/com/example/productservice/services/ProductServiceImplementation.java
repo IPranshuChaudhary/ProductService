@@ -1,26 +1,34 @@
 package com.example.productservice.services;
 
+import com.example.productservice.configs.RedisTemplateConfig;
 import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
 import com.example.productservice.repositories.CategoryRepository;
 import com.example.productservice.repositories.ProductRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Primary
 @Service
 public class ProductServiceImplementation implements ProductService{
 
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
 
+    private RedisTemplateConfig redisTemplateConfig;
+
     ProductServiceImplementation(ProductRepository productRepository,
-                                 CategoryRepository categoryRepository){
+                                 CategoryRepository categoryRepository,
+                                 RedisTemplateConfig redisTemplateConfig){
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.redisTemplateConfig = redisTemplateConfig;
     }
 
     @Override
@@ -37,11 +45,21 @@ public class ProductServiceImplementation implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
+
+        RedisTemplate<String, Object> redisTemplate = redisTemplateConfig.redisTemplate();
+        Product product = new Product();
+        product = (Product) redisTemplate.opsForHash().get("PRODUCTS","Product_"+id);
+
+        if (product != null) return product;
+
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isEmpty()){
             throw new ProductNotFoundException("Product with id: "+id+" doesn't exist");
         }
-        return productOptional.get();
+        product = productOptional.get();
+
+        redisTemplate.opsForHash().put("PRODUCTS","Product_"+id,product);
+        return product;
     }
 
     @Override
