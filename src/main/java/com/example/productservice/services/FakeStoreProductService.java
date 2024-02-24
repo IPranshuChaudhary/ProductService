@@ -1,6 +1,5 @@
 package com.example.productservice.services;
 
-import com.example.productservice.configs.RedisTemplateConfig;
 import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.FakeStoreProduct;
 import com.example.productservice.models.Product;
@@ -17,12 +16,12 @@ import java.util.List;
 @Service
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
-    private RedisTemplateConfig redisTemplateConfig;
+//    private RedisTemplateConfig redisTemplateConfig;
 
     @Autowired
-    public FakeStoreProductService(RestTemplate restTemplate, RedisTemplateConfig redisTemplateConfig) {
+    public FakeStoreProductService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.redisTemplateConfig = redisTemplateConfig;
+//        this.redisTemplateConfig = redisTemplateConfig;
     }
 
     @Override
@@ -32,21 +31,21 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long id) throws ProductNotFoundException {
-        RedisTemplate<String, Object> restTemplate1 = redisTemplateConfig.redisTemplate();
+//        RedisTemplate<String, Object> restTemplate1 = redisTemplateConfig.redisTemplate();
 
         Product product = new Product();
 
-        product = (Product) restTemplate1.opsForHash().get("PRODUCTS","Product_"+id);
+//        product = (Product) restTemplate1.opsForHash().get("PRODUCTS","Product_"+id);
 
-        if (product != null){
-            return product;
-        }
+//        if (product != null){
+//            return product;
+//        }
         FakeStoreProduct fakeStoreProduct = restTemplate.getForObject("https://fakestoreapi.com/products/"+id, FakeStoreProduct.class);
 
         product = getProductFromFakeStoreProduct(fakeStoreProduct);
 
         //storing product in Redis Map
-        restTemplate1.opsForHash().put("PRODUCTS","Product_"+id, product);
+//        restTemplate1.opsForHash().put("PRODUCTS","Product_"+id, product);
 
         return product;
     }
