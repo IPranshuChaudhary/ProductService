@@ -17,6 +17,7 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -59,7 +60,7 @@
             <version>8.3.0</version>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql &ndash;&gt;-->
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql &ndash;&gt;-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
@@ -88,30 +89,37 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>redis.clients</groupId>-->
+<!--            <artifactId>jedis</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-
-        </dependency>
-
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.nimbusds</groupId>-->
-<!--            <artifactId>nimbus-jose-jwt</artifactId>-->
-<!--            <version>9.38-rc3</version>-->
-<!--        </dependency>-->
+
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.nimbusds</groupId>-->
+        <!--            <artifactId>nimbus-jose-jwt</artifactId>-->
+        <!--            <version>9.38-rc3</version>-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-<!--            <version>3.2.3</version>-->
+            <!--            <version>3.2.3</version>-->
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose -->
@@ -122,12 +130,7 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-web</artifactId>-->
-<!--            <version>6.2.2</version>-->
-<!--        </dependency>-->
+
 
 
     </dependencies>

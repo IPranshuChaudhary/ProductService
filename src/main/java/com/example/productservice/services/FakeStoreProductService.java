@@ -4,8 +4,6 @@ import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.FakeStoreProduct;
 import com.example.productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -51,7 +49,7 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProducts() throws ProductNotFoundException {
+    public List<Product> getAllProducts(int pageNumber, int pageSize, String sortBy) throws ProductNotFoundException {
         FakeStoreProduct[] fakeStoreProducts = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProduct[].class);
         List<Product> productsList = new ArrayList<>();
 

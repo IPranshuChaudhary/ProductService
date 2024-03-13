@@ -13,7 +13,7 @@ public interface ProductService {
 
     public Product getSingleProduct(Long id) throws ProductNotFoundException;
 
-    public List<Product> getAllProducts() throws ProductNotFoundException;
+    public List<Product> getAllProducts(int pageNumber, int pageSize, String sortBy) throws ProductNotFoundException;
 
     public void deleteProduct(Long id);
 

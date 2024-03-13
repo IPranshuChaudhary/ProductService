@@ -6,7 +6,10 @@ import com.example.productservice.models.Product;
 import com.example.productservice.repositories.CategoryRepository;
 import com.example.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -64,15 +67,17 @@ public class ProductServiceImplementation implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProducts() throws ProductNotFoundException {
-        Optional<Product []> optionalProducts = productRepository.getAllProducts();
+    public List<Product> getAllProducts(int pageNumber, int pageSize, String sortBy) throws ProductNotFoundException {
+        Pageable firstPageWithTwoElements = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        Page<Product> optionalProducts = productRepository.getAllProducts(firstPageWithTwoElements);
+        System.out.println(optionalProducts);
 
         if (optionalProducts.isEmpty()){
             throw new ProductNotFoundException("No Products Found");
         }
 
         List<Product> productList = new ArrayList<>();
-        for (Product product: optionalProducts.get()){
+        for (Product product: optionalProducts){
             productList.add(product);
         }
         return productList;

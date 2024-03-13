@@ -36,10 +36,11 @@ public class ProductController {
         return new ResponseEntity<>(getProductDtoFromProduct(product),HttpStatus.OK);
     }
 
-    @GetMapping()
-    public List<ProductDto> getAllProducts() throws ProductNotFoundException {
+    @GetMapping("/{pageNumber}/{pageSize}/{sortBy}")
+    public List<ProductDto> getAllProducts(@PathVariable int pageNumber, @PathVariable int pageSize,
+                                           @PathVariable String sortBy) throws ProductNotFoundException {
 
-        List<Product> products= productService.getAllProducts();;
+        List<Product> products= productService.getAllProducts(pageNumber, pageSize, sortBy);;
 
         List<ProductDto> productDtoList = new ArrayList<>();
 
@@ -58,6 +59,8 @@ public class ProductController {
     public void deleteProducts(@PathVariable("id") Long id){
         productService.deleteProduct(id);
     }
+
+
 
 
     public Product getProductFromDto(ProductDto productDto){

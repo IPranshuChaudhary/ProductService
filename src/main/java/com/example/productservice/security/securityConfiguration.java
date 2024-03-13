@@ -1,6 +1,7 @@
 package com.example.productservice.security;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -14,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class securityConfiguration {
 
 
-    @org.springframework.beans.factory.annotation.Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${Auth_Server}")
     private String issuerUri;
 
     @Bean
